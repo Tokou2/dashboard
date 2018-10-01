@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+    server:
+        image: "node:8"
+        working_dir: "/dashboard"
+        volumes:
+          - .:/dashboard
+        expose:
+          - "8080"
+        command: "node src/app.js"
