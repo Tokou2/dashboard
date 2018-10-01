@@ -1,0 +1,13 @@
+{
+  "name": "Dashboard",
+  "version": "1.0.0",
+  "main": "src/app.js",
+  "engines": {
+    "node": "8"
+  },
+  "scripts": {
+    "start": "node ."
+  },
+  "license": "UNLICENSED",
+  "description": "Dashboard"
+}
