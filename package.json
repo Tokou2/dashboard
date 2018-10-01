@@ -6,8 +6,11 @@
     "node": "8"
   },
   "scripts": {
-    "start": "node ."
+    "start": "node .",
+    "devstart": "nodemon ."
   },
-  "license": "UNLICENSED",
-  "description": "Dashboard"
+  "description": "Dashboard",
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
 }
