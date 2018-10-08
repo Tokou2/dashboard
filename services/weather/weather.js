@@ -1,11 +1,11 @@
 let superagent = require('superagent');
-let MeteoWidget = require('./widgets/meteo');
+let CityTemperatureWidget = require('./widgets/city_temperature');
 
 class WeatherService {
 	constructor() {
 		this.apiKey = '77Ti1sS5wZ2bv1IBmYz052Gxl251cAGi';
 		this.baseUrl = `http://dataservice.accuweather.com`;
-		this.widgets = [ new MeteoWidget() ];
+		this.widgets = [ new CityTemperatureWidget() ];
 	}
 
 	about() {

@@ -1,4 +1,4 @@
-class MeteoWidget {
+class CityTemperatureWidget {
 	constructor() {
 		this.params = [
 			{
@@ -17,4 +17,4 @@ class MeteoWidget {
 	}
 }
 
-module.exports = MeteoWidget;
+module.exports = CityTemperatureWidget;
