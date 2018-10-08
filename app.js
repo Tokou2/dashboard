@@ -1,33 +1,27 @@
-// set express
 let express = require('express');
-let app = express();
-
-// set database
 let mongoose = require('mongoose');
 let databaseConfig = require('./config/database');
+var bodyParser = require('body-parser');
+var session = require('express-session');
+var flash = require('connect-flash');
+var cookieParser = require('cookie-parser')
+let passport = require('passport');
+let app = express();
+
+// init database
 mongoose.connect(databaseConfig.db, { useNewUrlParser: true }).catch((err) => {
 	console.log(err);
 });
 
-// set session
-var session = require('express-session');
-app.use(session({
-	secret:'secret123',
-	saveUninitialized: true,
-	resave:true
-}));
-
-// set passport
-let passport = require('passport');
+// set app
 require('./config/passport')(passport);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(session({ secret:'secret123', saveUninitialized: true, resave:true }));
 app.use(passport.initialize());
 app.use(passport.session());
-
-// set flash
-var flash = require('connect-flash');
 app.use(flash());
 
-// set view engine
 app.set('view engine', 'ejs');
 
 // set routes

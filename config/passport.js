@@ -12,38 +12,42 @@ module.exports = function(passport) {
 		});
 	});
 
-	passport.use('register', new LocalStrategy(function(req, username, password, done) {
+	passport.use('register', new LocalStrategy({
+		passReqToCallback : true
+	}, function(req, username, password, done) {
 		User.findOne({ username: username }, function(err, user) {
 			if (err) {
 				return done(err);
 			}
 			if (user) {
-				return done(null, false, { message: 'Email is already taken.' });
+				return done(null, false, req.flash('error', 'Email is already taken.'));
 			}
 			else {
 				var user = new User();
-				user.email = email;
+				user.username = username;
 				user.password = user.generateHash(password);
 				user.save(function(err) {
 					if (err) {
 						throw err;
 					}
-					return done(null,newUser);
+					return done(null, user);
 				});
 			}
 		});
 	}));
 
-	passport.use('login', new LocalStrategy(function(username, password, done) {
+	passport.use('login', new LocalStrategy({
+		passReqToCallback : true
+	}, function(req, username, password, done) {
 		User.findOne({ username: username }, function (err, user) {
 			if (err) {
 				return done(err);
 			}
 			if (!user) {
-				return done(null, false, { message: 'Incorrect username.' });
+				return done(null, false, req.flash('error', 'Incorrect username.'));
 			}
 			if (!user.validPassword(password)) {
-				return done(null, false, { message: 'Incorrect password.' });
+				return done(null, false, req.flash('error', 'Incorrect password.'));
 			}
 			return done(null, user);
 		});

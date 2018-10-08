@@ -1,8 +1,8 @@
 let services = require('../services/services');
 
 module.exports = (app) => {
-	app.get('/about.json', (request, response) => {
-		res = {
+	app.get('/about.json', (req, res) => {
+		response = {
 			client: {
 				host: request.hostname
 			},
@@ -11,6 +11,6 @@ module.exports = (app) => {
 				services
 			}
 		}
-		response.send(res);
+		res.json(response);
 	});
 }

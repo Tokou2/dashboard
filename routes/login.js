@@ -1,8 +1,8 @@
 let passport = require('passport');
 
 module.exports = (app) => {
-	app.get('/login', (request, response) => {
-		response.render('pages/login');
+	app.get('/login', (req, res) => {
+		res.render('pages/login', {error: req.flash('error')});
 	});
 
 	app.post('/login', passport.authenticate('login', {
@@ -10,4 +10,9 @@ module.exports = (app) => {
 		failureRedirect: '/login',
 		failureFlash: true
 	}));
+
+	app.post('/logout', (req, res) => {
+		req.logout();
+		res.redirect('/login');
+	});
 }

@@ -1,5 +1,10 @@
 module.exports = (app) => {
-	app.get('/', (request, response) => {
-		response.render('pages/index');
+	app.get('/', (req, res) => {
+		if (!req.isAuthenticated())
+			res.redirect('/login');
+		res.render('pages/index', {
+			error: req.flash('error'),
+			isConnected: true
+		});
 	});
 }
