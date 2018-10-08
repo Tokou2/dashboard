@@ -2,17 +2,19 @@ version: '3'
 
 services:
     server:
-        build: .
+        image: node:8
+        working_dir: /dashboard
         ports:
             - "8080:8080"
+        entrypoint: "npm start"
         volumes:
             - .:/dashboard
-#        depends_on:
-#            - mongodb
-#    mongodb:
-#        image: mongo:latest
-#        volumes:
-#            - ./data:/data/db
-#        ports:
-#            - "27017:27017"
-#        command: --smallfiles --logpath /dev/null
+        depends_on:
+            - mongodb
+    mongodb:
+        image: mongo:latest
+        volumes:
+            - ./data:/data/db
+        ports:
+            - "27017:27017"
+        command: --smallfiles --logpath /dev/null
