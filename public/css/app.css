@@ -40,3 +40,22 @@ p {
 	color:white;
 	cursor: pointer;
 }
+
+
+
+.header {
+	position: absolute;
+	left: 15%;
+	top: 0;
+	right: 0;
+	height: 90px;
+	border-bottom: 1px solid  #525252 
+}
+
+.logo {
+	position: absolute;
+	left: 58%;
+	top: 50%;
+	margin-left: -18px;
+	margin-top: 1px;
+}
