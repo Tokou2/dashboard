@@ -28,6 +28,34 @@ p {
 .widget-item {
 	height: 25px;
 	padding: 25px 0 25px 35px;
+	margin-top: 15px;
 	color: black;
 	line-height: 25px;
+	text-transform: uppercase;
+	line-height: 25px;
+}
+
+.widget-item:hover {
+	background-color:  #002656;
+	color:white;
+	cursor: pointer;
+}
+
+
+
+.header {
+	position: absolute;
+	left: 15%;
+	top: 0;
+	right: 0;
+	height: 90px;
+	border-bottom: 1px solid  #525252 
+}
+
+.logo {
+	position: absolute;
+	left: 58%;
+	top: 50%;
+	margin-left: -18px;
+	margin-top: 1px;
 }
