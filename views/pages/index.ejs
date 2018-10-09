@@ -5,6 +5,9 @@
 		<link rel="stylesheet" type="text/css" href="/css/app.css">
 	</head>
 	<body>
+		<% if (locals.tabSelected && error.tabSelected > 0) { %>
+				<h2><%= tabSelected %> <h2>
+		<% } %>
 		<div class= "sidebar">
 			<div class="title">
 				<p> La tundra pese sisi</p>
@@ -12,6 +15,7 @@
 			<ul class="widget">
 				<li class="widget-item">
 					meteo
+					
 				</li>
 				<li class="widget-item">
 					bourse

@@ -6,7 +6,8 @@ module.exports = (app) => {
 		else {
 			res.render('pages/index', {
 				error: req.flash('error'),
-				isConnected: true
+				isConnected: true,
+				tabSelected: 'home'
 			});
 		}
 	});
