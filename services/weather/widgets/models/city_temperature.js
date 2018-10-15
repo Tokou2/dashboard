@@ -1,6 +1,6 @@
 let mongoose = require('mongoose');
 
-let CityTemperatureSchema = mongoose.Schema({
+let CityTemperatureOptionsSchema = mongoose.Schema({
 	user: {
 		type: mongoose.Schema.ObjectId,
 		ref: 'User'
@@ -10,4 +10,4 @@ let CityTemperatureSchema = mongoose.Schema({
 	}
 });
 
-module.exports = mongoose.model('CityTemperature', CityTemperatureSchema);
+module.exports = mongoose.model('CityTemperatureOptions', CityTemperatureOptionsSchema);
