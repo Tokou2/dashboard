@@ -7,7 +7,18 @@ module.exports = (app) => {
 			res.render('pages/index', {
 				error: req.flash('error'),
 				isConnected: true,
-				tabSelected: 'home'
+				tabSelected: 'home',
+				widgets : {
+					"meteo": {
+						"name": "zizi"
+					}
+					"bourse": {
+						"name": "Bourse"
+					}
+					"cinema": {
+						"name": "Cinema"
+					}
+				}
 			});
 		// }
 	});

@@ -5,16 +5,15 @@
 		<link rel="stylesheet" type="text/css" href="/css/app.css">
 	</head>
 	<body>
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<div class= "sidebar">
 			<div class="title">
-				<p> La tundra pese sisi</p>
-			</div>
+				<p> La tundra pese sisi</p>			</div>
 			<ul class="widget">
-				<li class="widget-item">
+				<li class="widget-item" id= "first" onClick='aff("<%=widgets.meteo%>")'>
 					meteo
-
 				</li>
-				<li class="widget-item">
+				<li class="widget-item" >
 					bourse
 				</li>
 				<li class="widget-item">
@@ -33,10 +32,23 @@
 		</div>
 		<div class="header">
 		</div>
+		<div id="content" class="middle">
+			<h1 id= "titi">Dashboard</h1>
+		</div>
+		<script>
+			function	aff(widget) {
+				console.log(widget);
+				// a = document.getElementById("content")
+				document.getElementById('titi').innerHTML = widget;
+				// a.innerHTML = "<h1>TEST</h1>";
+			}
+		</script>
 		<!-- <% if (locals.tabSelected && error.tabSelected > 0) { %> -->
-			<% include test %>
-			<% tabSelected %>
+			<!-- <% include test %>
+			<% tabSelected %> -->
 		<!-- <% } %> -->
-		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		 <!-- <script src="../../client.js"></script> -->
 	</body>
+
+
 </html>
