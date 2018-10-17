@@ -1,4 +1,4 @@
-let services = require('../services/services');
+let services = require('../services/services').withoutUser;
 
 module.exports = (app) => {
 	app.get('/about.json', (req, res) => {

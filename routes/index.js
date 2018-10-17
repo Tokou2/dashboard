@@ -4,6 +4,7 @@ module.exports = (app) => {
 			res.redirect('/login');
 		}
 		else {
+			console.log(req.services);
 			res.render('pages/index', {
 				error: req.flash('error'),
 				isConnected: true

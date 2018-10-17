@@ -1,6 +1,6 @@
 class Service
 {
-	constructor(name, widgets = []) {
+	constructor(name, widgets = [], user = undefined) {
 		this.name = name;
 		this.widgets = widgets;
 	}
@@ -14,12 +14,6 @@ class Service
 			name: this.name,
 			widgets: widgets
 		};
-	}
-
-	setUser(user) {
-		for (let i in this.widgets) {
-			this.widgets[i].setUser(user);
-		}
 	}
 }
 

@@ -1,13 +1,19 @@
+let fs = require('fs');
 let WidgetOptions = require('../models/widget_options');
 
 class Widget
 {
-	constructor(name, description, params = []) {
+	constructor(name, description, serviceName, params = [], user = undefined) {
 		this.selected = true;
 		this.name = name;
 		this.description = description;
+		this.serviceName = serviceName;
 		this.params = params;
 		this.options = {};
+		if (user) {
+			this.user = user;
+			this.getOptions();
+		}
 	}
 
 	about() {
@@ -16,6 +22,17 @@ class Widget
 			description: this.description,
 			params: this.params
 		};
+	}
+
+	getView() {
+		console.log('get view');
+		let view = fs.readFileSync(`${__dirname}/../services/${this.serviceName}/widgets/${this.name}/views/view.ejs`);
+		return `<div class="${this.name}_container">${view}</div>`;
+	}
+
+	getOptionsView() {
+		let view = fs.readFileSync(`${__dirname}/../services/${this.serviceName}/widgets/${this.name}/views/view.ejs`);
+		return `<div class="${this.name}_options_container">${view}</div>`;
 	}
 
 	set(key, value) {
@@ -37,11 +54,6 @@ class Widget
 
 	unselect() {
 		this.selected = false;
-	}
-
-	setUser(user) {
-		this.user = user;
-		this.getOptions();
 	}
 
 	getOptions() {

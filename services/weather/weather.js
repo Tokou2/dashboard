@@ -4,8 +4,8 @@ let CityTemperatureWidget = require('./widgets/city_temperature/city_temperature
 
 class WeatherService extends Service
 {
-	constructor() {
-		let widgets = [ new CityTemperatureWidget() ];
+	constructor(user = undefined) {
+		let widgets = [ new CityTemperatureWidget(user) ];
 		super("weather", widgets);
 		//this.apiKey = '77Ti1sS5wZ2bv1IBmYz052Gxl251cAGi';
 		//this.baseUrl = `http://dataservice.accuweather.com`;

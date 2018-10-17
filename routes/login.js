@@ -19,10 +19,7 @@ module.exports = (app) => {
 				if (err) {
 					return next(err);
 				}
-				req.services = require('../services/services');
-				for (let i in req.services) {
-					req.services[i].setUser(req.user);
-				}
+				req.session.services = require('../services/services').withUser(req.user);
 				return res.redirect('/');
 			});
 		})(req, res, next);
