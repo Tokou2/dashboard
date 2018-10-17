@@ -25,7 +25,6 @@ class Widget
 	}
 
 	getView() {
-		console.log('get view');
 		let view = fs.readFileSync(`${__dirname}/../services/${this.serviceName}/widgets/${this.name}/views/view.ejs`);
 		return `<div class="${this.name}_container">${view}</div>`;
 	}

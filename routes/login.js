@@ -12,7 +12,6 @@ module.exports = (app) => {
 				return next(err);
 			}
 			if (!user) {
-				console.log('/login');
 				return res.redirect('/login');
 			}
 			req.logIn(user, function(err) {
