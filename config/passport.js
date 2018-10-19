@@ -20,7 +20,7 @@ module.exports = function(passport) {
 				return next(err);
 			}
 			if (user) {
-				return next(null, false, req.flash('error', 'Email is already taken.'));
+				return next(null, false, req.flash('error', 'Username is already taken.'));
 			}
 			else {
 				var user = new User();
