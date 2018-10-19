@@ -31,7 +31,7 @@ class Widget
 				</div>`;
 	}
 
-	getOptionsView() {
+	getViewOptions() {
 		let view = fs.readFileSync(`${__dirname}/../services/${this.serviceName}/widgets/${this.name}/views/options.ejs`);
 		return `<div class="${this.name}_options_container">
 					<form method="post" action="/">
