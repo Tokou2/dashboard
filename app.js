@@ -9,7 +9,7 @@ let passport = require('passport');
 let app = express();
 
 // init database
-mongoose.connect(databaseConfig.db, { useNewUrlParser: true }).catch((err) => {
+mongoose.connect(databaseConfig.db, { useNewUrlParser: true, useFindAndModify: false, useCreateIndex: true }).catch((err) => {
 	console.log(err);
 });
 

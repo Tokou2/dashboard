@@ -14,13 +14,13 @@ module.exports = function(passport) {
 
 	passport.use('register', new LocalStrategy({
 		passReqToCallback : true
-	}, function(req, username, password, done) {
+	}, function(req, username, password, next) {
 		User.findOne({ username: username }, function(err, user) {
 			if (err) {
-				return done(err);
+				return next(err);
 			}
 			if (user) {
-				return done(null, false, req.flash('error', 'Email is already taken.'));
+				return next(null, false, req.flash('error', 'Username is already taken.'));
 			}
 			else {
 				var user = new User();
@@ -30,7 +30,7 @@ module.exports = function(passport) {
 					if (err) {
 						throw err;
 					}
-					return done(null, user);
+					return next(null, user);
 				});
 			}
 		});
