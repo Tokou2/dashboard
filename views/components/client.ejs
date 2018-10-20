@@ -1,0 +1,22 @@
+<script type="text/javascript">
+let	json = <%-JSON.stringify(widgets)%>;
+var	id;
+
+function	aff(widgets) {
+	console.log("tessst");
+	document.getElementById("titles").innerHTML = widgets.name;
+	document.getElementById("allpage").innerHTML = "<div class='card-group' style = 'margin-left: 15%';> <div class='card' style = 'background-color: red'> <div class='card-body' ondragstart = 'dragstart(event)'></div>test</div><div class='card' style = 'background-color: yellow' ondragover= 'allowDrop(event)' ondrop='drop(event)'><div class='card-body'></div>yolo</div><div class='card' style = 'background-color:'green'></div></div></div>"
+}
+
+function allowDrop(ev) {
+	id = preventDefault();
+}
+
+function dragStart(ev){
+	id = ev.target.id;
+}
+
+function	drop(ev){
+}
+
+</script>
