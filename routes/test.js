@@ -33,7 +33,7 @@ module.exports = (app) => {
 
 	app.get('/widgetOptions', (req, res) => {
 		let widget = new CityTemperatureWidget(req.user);
-		res.send(widget.getOptionsView());
+		res.send(widget.getViewOptions());
 	});
 
 	app.get('/widget.json', (req, res) => {

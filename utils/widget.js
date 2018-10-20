@@ -26,21 +26,17 @@ class Widget
 
 	getView() {
 		let view = fs.readFileSync(`${__dirname}/../services/${this.serviceName}/widgets/${this.name}/views/view.ejs`);
-		return `<div class="${this.name}_container">
-					${view}
-				</div>`;
+		return `${view}`;
 	}
 
-	getOptionsView() {
+	getViewOptions() {
 		let view = fs.readFileSync(`${__dirname}/../services/${this.serviceName}/widgets/${this.name}/views/options.ejs`);
-		return `<div class="${this.name}_options_container">
-					<form method="post" action="/">
-						<input type="hidden" name="service" value="${this.serviceName}" />
-						<input type="hidden" name="widget" value="${this.name}" />
-						${view}
-						<button type="submit">Save</button>
-					</form>
-				</div>`;
+		return `<form method="post" action="/">
+					<input type="hidden" name="service" value="${this.serviceName}" />
+					<input type="hidden" name="widget" value="${this.name}" />
+					${view}
+					<button type="submit">Save</button>
+				</form>`;
 	}
 
 	set(key, value) {
