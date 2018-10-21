@@ -1,35 +1,89 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf -8">
-		<link rel="stylesheet" type="text/css" href="/css/app.css">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Dashboard</title>
+		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="/bower_components/Ionicons/css/ionicons.min.css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+		<link rel="stylesheet" href="dist/css/AdminLTE.min.css">
+		<link rel="stylesheet" href="dist/css/skins/_all-skins.min.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 	</head>
-	<body>
-		<div class= "sidebar">
-			<div class="title">
-				<p> La tundra pese sisi</p>
+	<body class="hold-transition skin-blue sidebar-mini" style="padding-up: 0; margin-up: 0">
+		<div class="wrapper">
+			<header class="main-header">
+				<a class="logo">
+					<span class="logo-lg"><b>TUNDRA</b></span>
+				</a>
+				<nav class="navbar navbar-static-top">
+					<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+						<span class="sr-only">Toggle navigation</span>
+					</a>
+				</nav>
+			</header>
+			<aside class="main-sidebar">
+				<section class="sidebar">
+					<ul class="sidebar-menu" data-widget="tree">
+						<li class="header">NAVIGATION</li>
+						<% if (locals.services) {
+						for (let i in services) { %>
+							<li class="treeview" onClick="affService('<%= services[i].name %>')">
+								<a href="#">
+									<i class="fa fa-dashboard"></i><%= services[i].name %>
+									<span class="pull-right-container">
+										<i class="fa fa-angle-left pull-right"></i>
+									</span>
+								</a>
+								<ul class="treeview-menu">
+									<% for (let j in services[i].widgets) { %>
+										<li onClick="affWidget('<%= services[i].widgets[j].name %>')"><i class="fa fa-check-circle-o"></i> <%= services[i].widgets[j].name %></li>
+									<% } %>
+								</ul>
+							</li>
+						<%	}
+						} %>
+					</ul>
+				</section>
+			</aside>
+			<div class="content-wrapper">
+				<section class="content-header">
+					<div id="content-services">
+
+					</div>
+				</section>
 			</div>
-			<ul class="widget">
-				<li class="widget-item">
-					meteo
-				</li>
-				<li class="widget-item">
-					bourse
-				</li>
-				<li class="widget-item">
-					cinema
-				</li>
-				<li class="widget-item">
-					steam
-				</li>
-				<li class="widget-item">
-					google map
-				</li>
-				<li class="widget-item">
-					youtube
-				</li>
-			</ul>
+			<footer class="main-footer">
+				<strong>la tundra pese</strong>
+			</footer>
+			<aside class="control-sidebar control-sidebar-dark">
+				<ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+					<li><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+					<li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+				</ul>
+			</aside>
+			<div class="control-sidebar-bg"></div>
 		</div>
-		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		<script src="bower_components/jquery/dist/jquery.min.js"></script>
+		<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="bower_components/fastclick/lib/fastclick.js"></script>
+		<script src="dist/js/adminlte.min.js"></script>
+		<script src="bower_components/jquery-sparkline/dist/jquery.sparkline.min.js"></script>
+		<script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+		<script src="bower_components/chart.js/Chart.js"></script>
+		<script src="dist/js/pages/dashboard2.js"></script>
+		<script src="dist/js/demo.js"></script>
+		<link rel="stylesheet" type="text/css" href="/css/app.css">
+		<% include ../scripts/services.ejs %>
+		<script  type="text/javascript">
+			<% if (locals.serviceSelected) { %>
+				affService(`<%= locals.serviceSelected %>`);
+			<% } else { %>
+				affService(services[0].name);
+			<% } %>
+		</script>
 	</body>
 </html>

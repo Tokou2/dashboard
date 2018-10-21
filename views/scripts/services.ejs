@@ -1,0 +1,90 @@
+<script type="text/javascript">
+	let services = [];
+	<% for (let i in locals.services) { %>
+		let obj = {
+			name: `<%= locals.services[i].name %>`,
+			widgets: []
+		};
+		<% for (let j in locals.services[i].widgets) { %>
+			obj.widgets.push({
+				name: `<%= locals.services[i].widgets[j].name %>`,
+				selected: <%= locals.services[i].widgets[j].selected %>,
+				view: `<%- locals.services[i].widgets[j].getView() %>`,
+				viewOptions: `<%- locals.services[i].widgets[j].getViewOptions() %>`,
+				options: `<%= locals.services[i].widgets[j].options %>`
+			});
+		<% } %>
+		services.push(obj);
+	<% } %>
+
+	function findService(serviceName) {
+		let service = undefined;
+		for (let i in services) {
+			if (services[i].name === serviceName) {
+				service = services[i];
+			}
+		}
+		return service;
+	}
+
+	function findWidget(widgetName) {
+		let widget = undefined;
+		for (let i in services) {
+			for (let j in services[i].widgets) {
+				if (services[i].widgets[j].name == widgetName) {
+					widget = services[i].widgets[j];
+				}
+			}
+		}
+		return widget;
+	}
+
+	function affService(serviceName) {
+		let service = findService(serviceName);
+		if (!service) {
+			return console.log(`undefined service: ${serviceName}`);
+		}
+		let html = `<div class="card-deck">`;
+		for (let i in service.widgets) {
+			let widget = service.widgets[i];
+			if (widget.selected) {
+				html += `<div class="card">
+							<nav class="nav">
+								<a class="nav-item nav-link" id="settings-${widget.name}" href="#"></a>
+							</nav>
+							<div class="card-body" id="content-${widget.name}"></div>
+						</div>`;
+			}
+		}
+		html += `</div>`;
+		$("div#content-services").html(html);
+		for (let i in service.widgets) {
+			affWidget(service.widgets[i].name);
+		}
+	}
+
+	function affWidget(widgetName) {
+		let widget = findWidget(widgetName);
+		if (!widget) {
+			return console.log(`undefined widget: ${widgetName}`);
+		}
+		$(`a#settings-${widget.name}`).attr("onClick", `affWidgetSettings('${widget.name}')`);
+		$(`a#settings-${widget.name}`).html(`<h4>Settings</h4>`);
+		$(`div#content-${widget.name}`).html(`<h2 class="card-title"${widget.name}"></h2>${widget.view}`);
+	}
+
+	function affWidgetSettings(widgetName) {
+		let widget = findWidget(widgetName);
+		if (!widget) {
+			return console.log(`undefined widget: ${widgetName}`);
+		}
+		$(`a#settings-${widget.name}`).attr("onClick", `affWidget('${widget.name}')`);
+		$(`a#settings-${widget.name}`).html(`<h4>Back</h4>`);
+		$(`div#content-${widget.name}`).html(`<h2 class="card-title"${widget.name} settings"></h2>${widget.viewOptions}`);
+	}
+</script>
+<% for (let i in services) {
+	for (let j in services[i].widgets) { %>
+	<%- include(`../services/${services[i].name}/widgets/${services[i].widgets[j].name}/scripts/ajax.ejs`, {options: JSON.stringify(services[i].widgets[j].options)}) %>
+<%	}
+}	%>

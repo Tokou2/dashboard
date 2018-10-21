@@ -26,33 +26,32 @@ class Widget
 
 	getView() {
 		let view = fs.readFileSync(`${__dirname}/../services/${this.serviceName}/widgets/${this.name}/views/view.ejs`);
-		return `<div class="${this.name}_container">
-					${view}
-				</div>`;
+		return `${view}`;
 	}
 
-	getOptionsView() {
+	getViewOptions() {
 		let view = fs.readFileSync(`${__dirname}/../services/${this.serviceName}/widgets/${this.name}/views/options.ejs`);
-		return `<div class="${this.name}_options_container">
-					<form method="post" action="/">
-						<input type="hidden" name="service" value="${this.serviceName}" />
-						<input type="hidden" name="widget" value="${this.name}" />
-						${view}
-						<button type="submit">Save</button>
-					</form>
-				</div>`;
+		return `<form method="post" action="/">
+					<input type="hidden" name="service" value="${this.serviceName}" />
+					<input type="hidden" name="widget" value="${this.name}" />
+					${view}
+					<button type="submit">Save</button>
+				</form>`;
 	}
 
 	set(key, value) {
 		let save = false;
 		for (let i in this.params) {
 			if (this.params[i].name.toLowerCase() === key.toLowerCase()) {
-				this.options[key.toLowerCase()] = value;
+				this.options[this.params[i].name.toLowerCase()] = value;
 				save = true;
 			}
 		}
 		if (save) {
 			this.saveOptions();
+		}
+		else {
+			console.log('Can\'t set params: unknown params.');
 		}
 	}
 
@@ -78,6 +77,9 @@ class Widget
 				}
 			});
 		}
+		else {
+			console.log('user in not defined.');
+		}
 	}
 
 	saveOptions() {
@@ -93,7 +95,7 @@ class Widget
 				}
 				options = options ? options.set(data) : new WidgetOptions(data);
 				options.save().then(
-					(res) => { console.log(res); }
+					(res) => {}
 				).catch(
 					(err) => { console.log(err); }
 				);

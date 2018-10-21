@@ -1,13 +1,21 @@
+let WidgetOptions = require('../models/widget_options');
+
 module.exports = (app) => {
 	app.get('/', (req, res) => {
 		if (!req.isAuthenticated()) {
 			res.redirect('/login');
 		}
 		else {
-			res.render('pages/index', {
-				error: req.flash('error'),
-				isConnected: true
-			});
+			let services = require('../services/services').withUser(req.user);
+			setTimeout(() => {
+				let serviceSelected = req.flash('serviceSelected')[0];
+				res.render('pages/index', {
+					error: req.flash('error'),
+					isConnected: true,
+					services: services,
+					serviceSelected: serviceSelected
+				});
+			}, 1000);
 		}
 	});
 
@@ -16,7 +24,6 @@ module.exports = (app) => {
 			res.redirect('/login');
 		}
 		else {
-			console.log(req.body);
 			let services = require('../services/services').withUser(req.user);
 			let serviceName = req.body.service;
 			delete req.body.service;
@@ -33,6 +40,8 @@ module.exports = (app) => {
 								for (let k in req.body) {
 									services[i].widgets[j].set(k, req.body[k]);
 								}
+								req.flash('serviceSelected', serviceName);
+								return res.redirect('/');
 							}
 						}
 					}
