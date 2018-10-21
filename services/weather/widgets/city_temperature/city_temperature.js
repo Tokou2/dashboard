@@ -6,6 +6,10 @@ class CityTemperatureWidget extends Widget
 		let params = [{
 			name: "city",
 			type: "string"
+		},
+		{
+			name: "location_key",
+			type: "string"
 		}];
 		super("city_temperature", "Display the temperature of a city", "weather", params, user);
 	}

@@ -27,48 +27,6 @@ module.exports = (app) => {
 		});
 	});
 
-	app.get('/:serviceName/:widgetName/getView', (req, res) => {
-		if (!req.isAuthenticated()) {
-			res.status(401);
-			res.send('Authentification required.');
-		}
-		else {
-			let services = require('../services/services').withUser(req.user);
-			for (let i in services) {
-				if (services[i].name === req.params.serviceName) {
-					for (let j in services[i].widgets) {
-						if (services[i].widgets[j].name === req.params.widgetName) {
-							return res.send(services[i].widgets[j].getView());
-						}
-					}
-				}
-			}
-			res.status(404);
-			res.send('Service or widget not found.');
-		}
-	});
-
-	app.get('/:serviceName/:widgetName/getViewOptions', (req, res) => {
-		if (!req.isAuthenticated()) {
-			res.status(401);
-			res.send('Authentification required.');
-		}
-		else {
-			let services = require('../services/services').withUser(req.user);
-			for (let i in services) {
-				if (services[i].name === req.params.serviceName) {
-					for (let j in services[i].widgets) {
-						if (services[i].widgets[j].name === req.params.widgetName) {
-							return res.send(services[i].widgets[j].getViewOptions());
-						}
-					}
-				}
-			}
-			res.status(404);
-			res.send('Service or widget not found.');
-		}
-	});
-
 	app.get('/test', (req, res) => {
 		if (!req.isAuthenticated()) {
 			res.status(404);
