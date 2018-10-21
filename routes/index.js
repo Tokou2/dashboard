@@ -1,3 +1,5 @@
+let WidgetOptions = require('../models/widget_options');
+
 module.exports = (app) => {
 	app.get('/', (req, res) => {
 		if (!req.isAuthenticated()) {
@@ -5,13 +7,15 @@ module.exports = (app) => {
 		}
 		else {
 			let services = require('../services/services').withUser(req.user);
-			let serviceSelected = req.flash('serviceSelected')[0];
-			res.render('pages/index', {
-				error: req.flash('error'),
-				isConnected: true,
-				services: services,
-				serviceSelected: serviceSelected
-			});
+			setTimeout(() => {
+				let serviceSelected = req.flash('serviceSelected')[0];
+				res.render('pages/index', {
+					error: req.flash('error'),
+					isConnected: true,
+					services: services,
+					serviceSelected: serviceSelected
+				});
+			}, 1000);
 		}
 	});
 

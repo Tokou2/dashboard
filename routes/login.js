@@ -18,7 +18,6 @@ module.exports = (app) => {
 				if (err) {
 					return next(err);
 				}
-				req.session.services = require('../services/services').withUser(req.user);
 				return res.redirect('/');
 			});
 		})(req, res, next);

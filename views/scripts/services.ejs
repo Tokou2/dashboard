@@ -10,7 +10,8 @@
 				name: `<%= locals.services[i].widgets[j].name %>`,
 				selected: <%= locals.services[i].widgets[j].selected %>,
 				view: `<%- locals.services[i].widgets[j].getView() %>`,
-				viewOptions: `<%- locals.services[i].widgets[j].getViewOptions() %>`
+				viewOptions: `<%- locals.services[i].widgets[j].getViewOptions() %>`,
+				options: `<%= locals.services[i].widgets[j].options %>`
 			});
 		<% } %>
 		services.push(obj);
@@ -82,3 +83,8 @@
 		$(`div#content-${widget.name}`).html(`<h2 class="card-title"${widget.name} settings"></h2>${widget.viewOptions}`);
 	}
 </script>
+<% for (let i in services) {
+	for (let j in services[i].widgets) { %>
+	<%- include(`../services/${services[i].name}/widgets/${services[i].widgets[j].name}/scripts/ajax.ejs`, {options: JSON.stringify(services[i].widgets[j].options)}) %>
+<%	}
+}	%>

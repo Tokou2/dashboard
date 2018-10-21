@@ -43,12 +43,15 @@ class Widget
 		let save = false;
 		for (let i in this.params) {
 			if (this.params[i].name.toLowerCase() === key.toLowerCase()) {
-				this.options[key.toLowerCase()] = value;
+				this.options[this.params[i].name.toLowerCase()] = value;
 				save = true;
 			}
 		}
 		if (save) {
 			this.saveOptions();
+		}
+		else {
+			console.log('Can\'t set params: unknown params.');
 		}
 	}
 
@@ -74,6 +77,9 @@ class Widget
 				}
 			});
 		}
+		else {
+			console.log('user in not defined.');
+		}
 	}
 
 	saveOptions() {
@@ -89,7 +95,7 @@ class Widget
 				}
 				options = options ? options.set(data) : new WidgetOptions(data);
 				options.save().then(
-					(res) => { console.log(res); }
+					(res) => {}
 				).catch(
 					(err) => { console.log(err); }
 				);
