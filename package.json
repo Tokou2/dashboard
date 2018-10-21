@@ -7,7 +7,7 @@
   },
   "scripts": {
     "start": "node .",
-    "devstart": "nodemon ."
+    "devstart": "nodemon -e js,ejs ."
   },
   "description": "Dashboard",
   "devDependencies": {
