@@ -70,7 +70,7 @@
 		}
 		$(`a#settings-${widget.name}`).attr("onClick", `affWidgetSettings('${widget.name}')`);
 		$(`a#settings-${widget.name}`).html(`<h4>Settings</h4>`);
-		$(`div#content-${widget.name}`).html(`<h2 class="card-title"${widget.name}"></h2>${widget.view}`);
+		$(`div#content-${widget.name}`).html(`<h2 class="card-title" id="${widget.name}"></h2>${widget.view}`);
 	}
 
 	function affWidgetSettings(widgetName) {
@@ -81,6 +81,14 @@
 		$(`a#settings-${widget.name}`).attr("onClick", `affWidget('${widget.name}')`);
 		$(`a#settings-${widget.name}`).html(`<h4>Back</h4>`);
 		$(`div#content-${widget.name}`).html(`<h2 class="card-title"${widget.name} settings"></h2>${widget.viewOptions}`);
+	}
+
+	function updateWidget(data) {
+		return $.ajax({
+			url: '/',
+			type: 'POST',
+			data: data
+		});
 	}
 </script>
 <% for (let i in services) {

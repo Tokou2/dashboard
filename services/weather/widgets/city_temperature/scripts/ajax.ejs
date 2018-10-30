@@ -1,42 +1,56 @@
 <script type="text/javascript">
 	<% if (locals.options) { %>
-		let options = <%- locals.options %>;
-		console.log(options);
-		if (!options.location_key || options.location_key === '') {
+		let ct_options = <%- locals.options %>;
+		console.log(ct_options);
+		if (!ct_options.location_key || ct_options.location_key === '') {
 			console.log("location undefined");
-			if (!options.city || options.city === '') {
+			if (!ct_options.city || ct_options.city === '') {
 				console.log("city undefined");
 				getLocationKey('Lyon');
 			}
 			else {
-				getLocationKey(options.city);
+				getLocationKey(ct_options.city);
 			}
 		}
+		getCityTemperature();
 
-		function getLocationKey(city) {
-			let url = `${options.base_url}/locations/v1/cities/search?apikey=${options.api_key}&q=${city}`;
+		function getCityTemperature() {
+			let url = `${ct_options.base_url}/currentconditions/v1/${ct_options.location_key}?apikey=${ct_options.api_key}`;
 			return $.ajax({
 				url: url,
 				type: "GET",
 				dataType: 'jsonp'
 			}).done((data) => {
 				if (data && data[0]) {
-					console.log('locationKey', data[0]);
-					update({
-						location_key: data[0].Key
-					}).catch((err) => {console.log(err);});
-				}
-				else {
-					console.log('city not found');
+					console.log(data[0]);
+					let html = `<ul class="list-group list-group-flush">
+									<li class="list-group-item">${data[0].Temperature.Metric.Value} °C</li>
+								</ul>`
+					$('#content-city_temperature').html(html);
 				}
 			});
 		}
 
-		function update(data) {
+		function getLocationKey(city) {
+			let url = `${ct_options.base_url}/locations/v1/cities/search?apikey=${ct_options.api_key}&q=${city}`;
 			return $.ajax({
-				url: '/',
-				type: 'POST',
-				data: data
+				url: url,
+				type: "GET",
+				dataType: 'jsonp'
+			}).done((data) => {
+				if (data && data[0]) {
+					console.log('locationKey', data[0].Key);
+					updateWidget({
+						service: 'weather',
+						widget: 'city_temperature',
+						city: city,
+						location_key: data[0].Key
+					}).catch((err) => { console.log(err); });
+				}
+				else {
+					console.log('city not found');
+					// set City not found
+				}
 			});
 		}
 	<% } %>
