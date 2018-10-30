@@ -19,10 +19,22 @@
 				<a class="logo">
 					<span class="logo-lg"><b>TUNDRA</b></span>
 				</a>
+				<script type="text/javascript">
+					function logout() {
+						console.log("test");
+						$.ajax({
+							url: '/logout',
+							types: 'POST'
+						});
+					}
+				</script>
 				<nav class="navbar navbar-static-top">
-					<a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+					<a style="margin-right: 90%;" href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
 						<span class="sr-only">Toggle navigation</span>
 					</a>
+					<form action="/logout" method="post">
+						<input style="background-color: white; margin-left: 20%;" type="submit" name="Logout" value="Logout">
+					</form>
 				</nav>
 			</header>
 			<aside class="main-sidebar">
