@@ -1,20 +1,22 @@
 <script type="text/javascript">
 	let services = [];
 	<% for (let i in locals.services) { %>
-		let obj = {
-			name: `<%= locals.services[i].name %>`,
-			widgets: []
-		};
-		<% for (let j in locals.services[i].widgets) { %>
-			obj.widgets.push({
-				name: `<%= locals.services[i].widgets[j].name %>`,
-				selected: <%= locals.services[i].widgets[j].selected %>,
-				view: `<%- locals.services[i].widgets[j].getView() %>`,
-				viewOptions: `<%- locals.services[i].widgets[j].getViewOptions() %>`,
-				options: `<%= locals.services[i].widgets[j].options %>`
-			});
-		<% } %>
-		services.push(obj);
+		{
+			let obj = {
+				name: `<%= locals.services[i].name %>`,
+				widgets: []
+			};
+			<% for (let j in locals.services[i].widgets) { %>
+				obj.widgets.push({
+					name: `<%= locals.services[i].widgets[j].name %>`,
+					selected: <%= locals.services[i].widgets[j].selected %>,
+					view: `<%- locals.services[i].widgets[j].getView() %>`,
+					viewOptions: `<%- locals.services[i].widgets[j].getViewOptions() %>`,
+					options: `<%= locals.services[i].widgets[j].options %>`
+				});
+			<% } %>
+			services.push(obj);
+		}
 	<% } %>
 
 	function findService(serviceName) {

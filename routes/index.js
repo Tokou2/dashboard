@@ -2,10 +2,10 @@ let WidgetOptions = require('../models/widget_options');
 
 module.exports = (app) => {
 	app.get('/', (req, res) => {
-		// if (!req.isAuthenticated()) {
-		// 	res.redirect('/login');
-		// }
-		// else {
+		if (!req.isAuthenticated()) {
+		 	res.redirect('/login');
+		}
+		else {
 			let services = require('../services/services').withUser(req.user);
 			setTimeout(() => {
 				let serviceSelected = req.flash('serviceSelected')[0];
@@ -16,7 +16,7 @@ module.exports = (app) => {
 					serviceSelected: serviceSelected
 				});
 			}, 1000);
-		// }
+		}
 	});
 
 	app.post('/', (req, res) => {
@@ -24,6 +24,7 @@ module.exports = (app) => {
 			res.redirect('/login');
 		}
 		else {
+			console.log("update widget");
 			let services = require('../services/services').withUser(req.user);
 			let serviceName = req.body.service;
 			delete req.body.service;

@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** Project Name
 ** File description:
-** dahsboard
+** class
 */
 
 let Widget = require('../../../../utils/widget');
@@ -18,7 +18,7 @@ class CityTemperatureWeekWidget extends Widget
 			name: "location_key",
 			type: "string"
 		}];
-		super("city_temperature", "Display the temperature of a city for week", "weather", params, user);
+		super("city_temperature_week", "Display the temperature of a city for the week", "weather", params, user);
 	}
 }
 

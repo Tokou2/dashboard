@@ -1,0 +1,59 @@
+
+<script type="text/javascript">
+{
+
+	<% if (locals.options) { %>
+		let ct_options = <%- locals.options %>;
+		console.log(ct_options);
+		if (!ct_options.location_key || ct_options.location_key === '') {
+			console.log("location undefined");
+			if (!ct_options.city || ct_options.city === '') {
+				console.log("city undefined");
+				getLocationKey('Lyon');
+			}
+			else {
+				getLocationKey(ct_options.city);
+			}
+		}
+		getCityTemperature();
+
+		function getCityTemperature() {
+			let url = `${ct_options.base_url}/forecasts/v1/daily/5day/${ct_options.location_key}?apikey=${ct_options.api_key}`;
+			return $.ajax({
+				url: url,
+				type: "GET",
+				dataType: 'jsonp'
+			}).done((data) => {
+				if (data && data[0]) {
+					console.log(data[0]);
+				}
+			});
+		}
+
+		function getLocationKey(city) {
+			let url = `${ct_options.base_url}/locations/v1/cities/search?apikey=${ct_options.api_key}&q=${city}`;
+			return $.ajax({
+				url: url,
+				type: "GET",
+				dataType: 'jsonp'
+			}).done((data) => {
+				console.log("ajax done");
+				console.log("data: ", data);
+				if (data && data[0]) {
+					console.log('locationKey', data[0].Key);
+					updateWidget({
+						service: 'weather',
+						widget: 'city_temperature',
+						city: city,
+						location_key: data[0].Key
+					}).catch((err) => { console.log(err); });
+				}
+				else {
+					console.log('city not found');
+					// set City not found
+				}
+			});
+		}
+	<% } %>
+}
+</script>

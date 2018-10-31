@@ -1,4 +1,3 @@
-let superagent = require('superagent');
 let Service = require('../../utils/service.js');
 let CityTemperatureWidget = require('./widgets/city_temperature/city_temperature');
 let CityTemperatureWeekWidget = require('./widgets/city_temperature_week/city_temperature_week')

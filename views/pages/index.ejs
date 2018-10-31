@@ -63,6 +63,14 @@
 			</aside>
 			<div class="content-wrapper">
 				<section class="content-header">
+					<% if (locals.error && error.length > 0) { %>
+					<h2>Errors:</h2>
+					<li>
+					<% for (let i in error) { %>
+						<ul><%= error[i] %></ul>
+					<% } %>
+					</li>
+					<% } %>
 					<div id="content-services">
 
 					</div>
