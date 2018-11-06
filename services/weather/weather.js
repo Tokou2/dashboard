@@ -5,7 +5,7 @@ let CityTemperatureWeekWidget = require('./widgets/city_temperature_week/city_te
 class WeatherService extends Service
 {
 	constructor(user = undefined) {
-		let widgets = [ new CityTemperatureWidget(user), new CityTemperatureWeekWidget(user)];
+		let widgets = [new CityTemperatureWidget(user), new CityTemperatureWeekWidget(user)];
 		for (let i in widgets) {
 			widgets[i].params.push({name: 'api_key', type: "string"});
 			widgets[i].set('api_key', '77Ti1sS5wZ2bv1IBmYz052Gxl251cAGi');

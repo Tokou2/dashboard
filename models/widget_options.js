@@ -4,7 +4,6 @@ let WidgetOptionsSchema = mongoose.Schema({
 	userId: {
 		type: mongoose.Schema.ObjectId,
 		ref: 'User',
-		unique: true,
 		require: true
 	},
 	widgetName: {

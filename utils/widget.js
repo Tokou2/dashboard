@@ -40,9 +40,11 @@ class Widget
 	}
 
 	set(key, value) {
+
 		let save = false;
 		for (let i in this.params) {
 			if (this.params[i].name.toLowerCase() === key.toLowerCase()) {
+				console.log(`TEESSSSSSSSSSSSSSSST--------------------------------- key: ${key} value: ${value}`);
 				this.options[this.params[i].name.toLowerCase()] = value;
 				save = true;
 			}
@@ -95,7 +97,7 @@ class Widget
 				}
 				options = options ? options.set(data) : new WidgetOptions(data);
 				options.save().then(
-					(res) => {}
+					(res) => { console.log(res); }
 				).catch(
 					(err) => { console.log(err); }
 				);

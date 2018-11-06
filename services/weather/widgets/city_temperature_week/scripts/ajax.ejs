@@ -1,56 +1,62 @@
-
 <script type="text/javascript">
 {
-
 	<% if (locals.options) { %>
 		let ct_options = <%- locals.options %>;
-		console.log(ct_options);
 		if (!ct_options.location_key || ct_options.location_key === '') {
-			console.log("location undefined");
 			if (!ct_options.city || ct_options.city === '') {
-				console.log("city undefined");
 				getLocationKey('Lyon');
 			}
 			else {
 				getLocationKey(ct_options.city);
 			}
 		}
-		getCityTemperature();
-
-		function getCityTemperature() {
-			let url = `${ct_options.base_url}/forecasts/v1/daily/5day/${ct_options.location_key}?apikey=${ct_options.api_key}`;
-			return $.ajax({
-				url: url,
-				type: "GET",
-				dataType: 'jsonp'
-			}).done((data) => {
-				if (data && data[0]) {
-					console.log(data[0]);
-				}
-			});
-		}
 
 		function getLocationKey(city) {
+			console.log("start function getLocationKey");
 			let url = `${ct_options.base_url}/locations/v1/cities/search?apikey=${ct_options.api_key}&q=${city}`;
+			console.log("before ajax");
 			return $.ajax({
 				url: url,
 				type: "GET",
 				dataType: 'jsonp'
 			}).done((data) => {
-				console.log("ajax done");
-				console.log("data: ", data);
 				if (data && data[0]) {
+					console.log("after ajax");
 					console.log('locationKey', data[0].Key);
 					updateWidget({
 						service: 'weather',
-						widget: 'city_temperature',
+						widget: 'city_temperature_week',
 						city: city,
 						location_key: data[0].Key
 					}).catch((err) => { console.log(err); });
+					getcityTemperature();
 				}
 				else {
 					console.log('city not found');
-					// set City not found
+					// set city not found
+				}
+			});
+		}
+		function getcityTemperature() {
+			console.log("start function getcityTemperature");
+			let url = `${ct_options.base_url}/forecasts/v1/daily/5day/${ct_options.location_key}?apikey=${ct_options.api_key}`;
+			console.log(url);
+			return $.ajax({
+				url: url,
+				type: "GET",
+				dataType: 'jsonp'
+			}).done((data) => {
+				if (data) {
+					console.log(data);
+					console.log("done");
+				let html = `<ul class="list-group list-group-flush">
+			<li class="list-group-item">Next Day: ${Math.round((data.DailyForecasts[0].Temperature.Minimum.Value - 32) * 5/9)} °C</li>
+			<li class="list-group-item">Next: ${Math.round((data.DailyForecasts[1].Temperature.Minimum.Value - 32) * 5/9)} °C</li>
+			<li class="list-group-item">Next: ${Math.round((data.DailyForecasts[2].Temperature.Minimum.Value - 32) * 5/9)} °C</li>
+			<li class="list-group-item">Next: ${Math.round((data.DailyForecasts[3].Temperature.Minimum.Value - 32) * 5/9)} °C</li>
+			<li class="list-group-item">Next: ${Math.round((data.DailyForecasts[4].Temperature.Minimum.Value - 32) * 5/9)} °C</li>
+				</ul>`
+				$('#content-city_temperature_week').html(html);
 				}
 			});
 		}

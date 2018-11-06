@@ -13,7 +13,7 @@ class	StatistiqueVideoWidget extends Widget
 		let params = [{
 			name : "url",
 			type : "string"
-		}]
+		}];
 		super("video", "check rating video by url", "youtube", params, user);
 	}
 

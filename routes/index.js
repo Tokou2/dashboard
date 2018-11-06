@@ -18,13 +18,12 @@ module.exports = (app) => {
 			}, 1000);
 		}
 	});
-
 	app.post('/', (req, res) => {
+		console.log("test app post");
 		if (!req.isAuthenticated()) {
 			res.redirect('/login');
 		}
 		else {
-			console.log("update widget");
 			let services = require('../services/services').withUser(req.user);
 			let serviceName = req.body.service;
 			delete req.body.service;
